@@ -8,6 +8,10 @@
     <title>Corona-Snake</title>
 </head>
 <body onload="loadMenu(event)">
+    <header>
+        <p><img class="logo" src="./assets/virus.png" alt="logo" onclick="loadMenu(event)"/><span id="quote"></span></p>
+    </header>
+    
     <template id="menuTemplate">
         <h1><mark>🐍 Snake - quarantaine edition 😷</mark></h1>
 
@@ -28,6 +32,20 @@
             <li><mark>Italie</mark></li>
         </ol>
     </template>
+
+    <template id="gameTemplate">
+        <canvas>
+
+        </canvas>
+    </template>
+
+    <div id="contentZone">
+
+    </div>
+
+    <footer>
+        <p>Snake, quarantaine edition - Daniel Blasko - 2020 - IUT Lyon 1</p>
+    </footer>
     
 </body>
 </html>
