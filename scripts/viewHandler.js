@@ -1,5 +1,6 @@
 // Revealing module pattern - cf. https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
 let viewHandler = (function() {
+    // viewHandler handles the DOM to switch between game/menu screens (with all needed modifications)
     const MENU = 'M';
     const GAME = 'G';
     const welcomeQuotes = [" : tu ne m'auras pas !", " : ces vacances, je voyage à ta place 🌎", " : t'es sûr qu'il t'en reste assez ? 🧻"];
@@ -23,21 +24,21 @@ let viewHandler = (function() {
 
     function loadScreen(screen) { // screen is either the MENU or GAME constant
         cleanContentZone();
-        //let templateId = (screen === GAME)? "gameTemplate" : "menuTemplate";
         currentScreen = screen;
     
-        let template = document.getElementById(currentScreen);
+        let template = document.getElementById(currentScreen + "_template");
         let clone = document.importNode(template.content, true);
         contentZone.appendChild(clone);
 
         updateWelcomeQuote();
     }
 
-    return {  // attr/méthodes publiques, le reste privé
-        loadScreen: loadScreen,
+    return {  // public attributs/methods, the reste is private 
         MENU: MENU,
         GAME: GAME,
-    }
+
+        loadScreen: loadScreen,
+    };
 }());
 
 
