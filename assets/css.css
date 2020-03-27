@@ -8,6 +8,7 @@ body {
     background-color: rgba(223, 219, 222, 0.521);
     color: rgb(56, 55, 55);
     font-family: Cinzel;
+    transition: 0.7s;
 }
 
 h1 {

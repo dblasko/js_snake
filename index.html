@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css.css" type="text/css" rel="stylesheet"/>
-    <script type="text/javascript" src="script.js" defer async></script>
+    <link rel="icon" type="image/png" href="assets/virus.png" />
+    <script type="text/javascript" src="viewHandler.js" defer async></script>
     <title>Corona-Snake</title>
 </head>
 <body onload="loadMenu(event)">
@@ -12,7 +13,7 @@
         <p><img class="logo" src="./assets/virus.png" alt="logo" onclick="loadMenu(event)"/><span id="quote"></span></p>
     </header>
     
-    <template id="menuTemplate">
+    <template id="M">
         <h1><mark>🐍 Snake - quarantaine edition 😷</mark></h1>
 
         <p id="chapterTxt">
@@ -33,7 +34,7 @@
         </ol>
     </template>
 
-    <template id="gameTemplate">
+    <template id="G">
         <canvas>
 
         </canvas>
