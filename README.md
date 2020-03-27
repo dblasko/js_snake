@@ -14,4 +14,4 @@ A practical project for my JS course.
 * Clone the project on your machine.
 * Open a terminal at the root of the project folder.
 * Run `python3 -m http.server` if you have Python 3 installed. Else, use any web server you prefer. 
-* The project is then available at [](0.0.0.0:8000). Have fun ! 🐍
+* The project is then available at [0.0.0.0:8000](0.0.0.0:8000). Have fun ! 🐍
