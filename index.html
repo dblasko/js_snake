@@ -25,13 +25,12 @@
 
         <h2><mark>Veuillez sélectionner le niveau de difficulté :</mark></h2>
 
-        <ol id="options">
-            <!-- TODO : charger les options dynamiquement avec les JSON ? -->
-            <li><mark>Slovaquie</mark></li>
-            <li><mark>Allemagne</mark></li>
-            <li><mark>France</mark></li>
-            <li><mark>Chine</mark></li>
-            <li><mark>Italie</mark></li>
+        <ol id="options" onclick="levelSelected(event)">
+            <li><mark id="slovakia">Slovaquie</mark></li>
+            <li><mark id="germany">Allemagne</mark></li>
+            <li><mark id="france">France</mark></li>
+            <li><mark id="china">Chine</mark></li>
+            <li><mark id="italy">Italie</mark></li>
         </ol>
     </template>
 
@@ -44,6 +43,8 @@
     <div id="contentZone">
 
     </div>
+
+    <div id="snackbar" hidden></div>
 
     <footer>
         <p>Snake, quarantaine edition - Daniel Blasko - 2020 - IUT Lyon 1</p>
