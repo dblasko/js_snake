@@ -3,28 +3,20 @@ let gameState = (function() {
     const EMPTY = 'E';
     const SNAKE = 'S';
     const FOOD = 'F';
+    const WALL = 'W';
 
-    // f° getLevel => choppe dans l'URL? avec le # cf le TP 
-    // sinon au clic dans une var globale, ou un setter gameState => getLevel l'utilise
-
-    let snake = [];
-    let world = [
-        [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY, EMPTY,  EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
-    ];
-    // L’information sur le serpent est donc stockée de manière redondante dans ces deux tableaux. Cette redondance rendra la gestion du jeu plus simple par la suite.
-    let currentLevel;
+    let snake;
+    let world;
+    let levelData;
     let key;
+    let score = 0;
+    let intervalId = -1; // to stop the interval when game is left
 
     function notifyLevelSelected(level) {
         fetch(`./assets/levels/${level}.json`).then(response=>{
             if (response.ok) {
                 response.json().then(resp => {
-                    currentLevel = resp;
+                    levelData = resp;
                     startGame();
                 });
             } else {
@@ -36,8 +28,17 @@ let gameState = (function() {
 
     function startGame() { // private 
         viewHandler.loadScreen(viewHandler.GAME); // TODO : afficher après draw ?
-        // initial draw (random apple...) + initial direction ... etc + delay step()
-        // BIEN REMETTRE A 0 TOUTES VAL DE JEU ICI
+        // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
+        key = validKeys[0];
+        score = 0;
+        snake = levelData.snake; 
+        world = Array(levelData.dimensions[0]).fill(EMPTY).map(x => Array(levelData.dimensions[1]).fill(EMPTY));
+        for (snakePart of snake) world[snakePart[0]][snakePart[1]] = SNAKE;
+        for (wall of levelData.walls) world[wall[0]][wall[1]] = WALL;
+        for (food of levelData.food) world[food[0]][food[1]] = FOOD;
+
+        // TODO : initial draw 
+        intervalId = window.setInterval(step, levelData.delay);
     }
 
     function setKey(pressedKey) {
@@ -51,12 +52,20 @@ let gameState = (function() {
             // Sinon, fin partie : score + menu 
         // MAJ tab SNAKE -> avancer (cf énoncé) + aug° taille si mangé (= pas réduire queue) + MAJ WORLD
         // effacer & redessiner canvas en corresp° avec WORLD
+        // TODO : maintain le score
+    }
+
+    function tryStopStepping() { // to stop the game (when the user gets back to the menu)
+        if (intervalId != -1) {
+            clearInterval(intervalId);
+            intervalId = -1; // to not re-try stopping if the user clicks on the button again
+        }
     }
 
     return { // public attributes / methods
         setKey: setKey,
-        step: step,
-        notifyLevelSelected: notifyLevelSelected,  
+        notifyLevelSelected: notifyLevelSelected,
+        tryStopStepping: tryStopStepping,  
     };
 }());
 
@@ -66,8 +75,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-
-// TODO !!! : SUPPR LA FONCTION STEP MISE EN TIMEOUT
 
 // ACCUEIL : listener avec ids sur la liste niveaux
 // au clic : appelle loadLevel de gameState avec en param° le nom du lvl (id)

@@ -51,6 +51,12 @@ h2 {
     font-family: 'Press Start 2P';
 }
 
+.game {
+    font-family: 'Press Start 2P';
+    text-align: center;
+}
+
+
 h2 > mark {
     display: inline-block;
     line-height: 0em;

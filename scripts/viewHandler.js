@@ -52,6 +52,7 @@ let viewHandler = (function() {
 
 
 function loadMenu(event) {
+    gameState.tryStopStepping(); // if a game is running, it stops it before loading the menu | else it doesn't do anything
     viewHandler.loadScreen(viewHandler.MENU);
 }
 
