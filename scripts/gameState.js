@@ -37,7 +37,8 @@ let gameState = (function() {
         for (wall of levelData.walls) world[wall[0]][wall[1]] = WALL;
         for (food of levelData.food) world[food[0]][food[1]] = FOOD;
 
-        // TODO : initial draw 
+        // TODO : initial draw : f° DRAW WORLD réutilisé dans step
+
         intervalId = window.setInterval(step, levelData.delay);
     }
 
@@ -46,13 +47,38 @@ let gameState = (function() {
     }
 
     function step() {
-        // 1. modif° direction si besoin 
-        // 2. tête rencontre nourriture / mur / morceau corps ?
-            // aug° score + nourriture dans case vide aléatoire 
-            // Sinon, fin partie : score + menu 
-        // MAJ tab SNAKE -> avancer (cf énoncé) + aug° taille si mangé (= pas réduire queue) + MAJ WORLD
-        // effacer & redessiner canvas en corresp° avec WORLD
-        // TODO : maintain le score
+        let x=0, y=0; // determine movement direction
+        switch(key) {
+            case "ArrowUp":     x=-1; break;
+            case "ArrowDown":   x=1; break;
+            case "ArrowLeft":   y=-1; break;
+            default:            y=1; break;
+        }
+     
+        let futureHeadLocation = world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y]; // head is at the last position of the snake array
+        if (futureHeadLocation === FOOD || futureHeadLocation === EMPTY) {
+            if (futureHeadLocation === FOOD) {
+                score++;
+                let x1, y1;
+                do { // generate random coordinates where the map is empty
+                    x1 = Math.floor((Math.random()*world.length));
+                    y1 = Math.floor((Math.random()*world[0].length));
+                } while(world[x1][y1] != EMPTY); 
+                world[x1][y1] = FOOD;
+                // the head will override the old food
+                snake.push([snake[snake.length-1][0]+x, snake[snake.length-1][1]+y]); // we don't remove the tail since he's eaten
+            } else { // he just moves forward (empty)
+                snake.push([snake[snake.length-1][0]+x, snake[snake.length-1][1]+y]);
+                let poppedTail = snake.shift();
+                world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
+            }
+            world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y] = SNAKE; // head
+            // TODO : reste traitement commun : re-draw canvas en se basant sur WORD : CALL FONCTION DRAW WORLD
+        } else { // WALL ou SNAKE : perdu dans les deux cas
+            // TODO : fin partie : score + menu 
+            tryStopStepping();
+        }
+        // TODO : maintain le score dans l'ui
     }
 
     function tryStopStepping() { // to stop the game (when the user gets back to the menu)
