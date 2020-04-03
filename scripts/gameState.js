@@ -26,6 +26,38 @@ let gameState = (function() {
         });
     }
 
+    /*function drawGameState() {
+
+    }*/
+
+    function showGameEnded() {
+        // TODO IDEA  : leaderboard ?
+        // msg + score + button (back to the menu & REPLAY ?)
+        /*let modal = document.getElementById("modale");
+        let leave = document.getElementsByClassName("close")[0];
+        let scoreSpan = document.getElementById("scoreSpan");
+
+        scoreSpan.innerHTML = score;
+        modal.style.display = "block";
+
+        leave.onclick = function() {
+            modal.style.display = "none";
+            loadMenu(null);
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                this.loadMenu(null);
+            }
+        }
+        */
+       console.log("test")
+    }
+
+    function test() {
+        console.log("test");
+    }
+
     function startGame() { // private 
         viewHandler.loadScreen(viewHandler.GAME); // TODO : afficher après draw ?
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
@@ -37,7 +69,8 @@ let gameState = (function() {
         for (wall of levelData.walls) world[wall[0]][wall[1]] = WALL;
         for (food of levelData.food) world[food[0]][food[1]] = FOOD;
 
-        // TODO : initial draw : f° DRAW WORLD réutilisé dans step
+        // data is prepared, draw the initial screen and then launch the game
+        drawGameState();
 
         intervalId = window.setInterval(step, levelData.delay);
     }
@@ -73,16 +106,18 @@ let gameState = (function() {
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
             }
             world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y] = SNAKE; // head
-            // TODO : reste traitement commun : re-draw canvas en se basant sur WORD : CALL FONCTION DRAW WORLD
+            // data is updated, update the game screen
+            drawGameState();
         } else { // WALL ou SNAKE : perdu dans les deux cas
             // TODO : fin partie : score + menu 
             tryStopStepping();
+            showGameEnded();
         }
         // TODO : maintain le score dans l'ui
     }
 
     function tryStopStepping() { // to stop the game (when the user gets back to the menu)
-        if (intervalId != -1) {
+        if (intervalId != -1) { // if -1, no interval is running
             clearInterval(intervalId);
             intervalId = -1; // to not re-try stopping if the user clicks on the button again
         }
@@ -92,6 +127,8 @@ let gameState = (function() {
         setKey: setKey,
         notifyLevelSelected: notifyLevelSelected,
         tryStopStepping: tryStopStepping,  
+        test: test,
+        showGameEnded: showGameEnded,
     };
 }());
 
@@ -104,8 +141,4 @@ document.addEventListener("keydown", (event) => {
 
 // ACCUEIL : listener avec ids sur la liste niveaux
 // au clic : appelle loadLevel de gameState avec en param° le nom du lvl (id)
-// gameState appelle AJAX pour récupérer le JSON en objet, qu'il stocke en attr currentLevel
-
-
-    // set le gameState, le laisser fetch puis loadGame lui même ? il fait viewHandler...
-    // BIEN GERER SI PAS UN DES LVL
+// gameState appelle AJAX pour récupérer le JSON en objet, qu'il stocke en attr currentLevel puis affiche tout
