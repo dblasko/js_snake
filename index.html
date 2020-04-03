@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css.css" type="text/css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="assets/virus.png" />
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script type="text/javascript" src="./scripts/gameImageAssets.js" defer async></script>
     <script type="text/javascript" src="./scripts/viewHandler.js" defer async></script>
     <script type="text/javascript" src="./scripts/gameState.js" defer async></script>
     <title>Corona-Snake</title>
@@ -38,7 +40,7 @@
         <p class="game">
             🧻-score : <span id="score">0</span>
         </p>
-        <canvas>
+        <canvas id="cnv" width="400" height="400">
 
         </canvas>
     </template>
@@ -51,7 +53,7 @@
     <div id="modale" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <p>Perdu ! </br>Score : <span id="scoreSpan"></span></p>
+          <p>Perdu ! </br></br>🧻-score : <span id="scoreSpan"></span></p>
         </div>
       </div>
 
