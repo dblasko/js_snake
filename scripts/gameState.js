@@ -133,6 +133,7 @@ let gameState = (function() {
         }
      
         let futureHeadLocation = world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y]; // head is at the last position of the snake array
+        console.log("FUTURE HEAD LOCATION : " + futureHeadLocation);
         // undefined if gets out of map
         if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
             if (futureHeadLocation === FOOD) {
@@ -146,6 +147,7 @@ let gameState = (function() {
                 // the head will override the old food
                 snake.push([snake[snake.length-1][0]+x, snake[snake.length-1][1]+y]); // we don't remove the tail since he's eaten
             } else { // he just moves forward (empty)
+                console.log("EMPTY MOVE");
                 snake.push([snake[snake.length-1][0]+x, snake[snake.length-1][1]+y]);
                 let poppedTail = snake.shift();
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
@@ -155,7 +157,7 @@ let gameState = (function() {
             drawGameState(); // data is updated, update the game screen
         } else { // WALL ou SNAKE : both cases, user has lost
             //console.log(snake);
-            console.log(world[snake[snake.length-1][0]+1][snake[snake.length-1][1]]); // head is at the last position of the snake array);
+            console.log("lost :/ was going : x : " + x + " y : " + y); // head is at the last position of the snake array);
             tryStopStepping();
             showGameEnded();
         }
