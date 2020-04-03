@@ -9,6 +9,7 @@ body {
     color: rgb(56, 55, 55);
     font-family: Cinzel;
     transition: 0.7s;
+    text-size-adjust: auto;
 }
 
 h1 {
@@ -181,3 +182,24 @@ header {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
   }
+
+
+  @media screen and (max-width: 800px) {
+      
+
+    h1 > mark {
+        line-height: 1em;
+        padding: 0.3em 0em 0.3em 0em;
+    }
+
+
+    h2 > mark {
+        line-height: 1em;
+        padding: 0.3em 0em 0.3em 0em;
+    }
+
+    #contentZone p {
+        margin: 2vh 12vw 2vh 12vw;
+        line-height: 1.5em;
+    }
+}

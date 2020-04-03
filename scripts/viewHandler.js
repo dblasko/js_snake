@@ -3,7 +3,7 @@ let viewHandler = (function() {
     // viewHandler handles the DOM to switch between game/menu screens (with all needed modifications)
     const MENU = 'M';
     const GAME = 'G';
-    const welcomeQuotes = [" : tu ne m'auras pas !", " : ces vacances, je voyage à ta place 🌎", " : t'es sûr qu'il t'en reste assez ? 🧻"];
+    const welcomeQuotes = [" : tu ne m'auras pas !", " : ces vacances, je voyage à ta place 🌎", " : t'es sûr qu'il t'en reste assez ? 🧻", " : miam ! mon plat préféré 🦇🍜🦇"];
 
     let contentZone = document.getElementById("contentZone");
     let quoteZone = document.getElementById("quote");
