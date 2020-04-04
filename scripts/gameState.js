@@ -38,7 +38,7 @@ let gameState = (function() {
         let ctZone = document.getElementById("contentZone");
 
         // clear the canvas
-        ctx.fillStyle ="grey";
+        ctx.fillStyle ="black";
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (cHeight == undefined) cHeight = ctZone.clientHeight*0.9;
