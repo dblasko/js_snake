@@ -77,7 +77,6 @@ let gameState = (function() {
     }
 
     function showGameEnded() {
-        // TODO IDEA  : leaderboard ?
         let modal = document.getElementById("modale");
         let leave = document.getElementsByClassName("close")[0];
         let scoreSpan = document.getElementById("scoreSpan");
@@ -134,10 +133,9 @@ let gameState = (function() {
             case "ArrowLeft":   x=-1; break;
             default:            x=1; break;
         }
-        console.log("DIRECTION: " + key);
         
         let futureHeadLocation;
-        if((snake[snake.length-1][0] >= world.length -1 && y===1)) {
+        if((snake[snake.length-1][0] >= world.length -1 && y===1) || (y===-1 && snake[snake.length-1][0] <= 0)) {
             futureHeadLocation = undefined;
         } else {
             futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
