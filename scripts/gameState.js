@@ -62,7 +62,8 @@ let gameState = (function() {
             for (j=0; j<world[i].length; j++) {
                 let img = undefined;
                 switch (world[i][j]) {
-                    case SNAKE: img = gameImageAssets.cVirus;
+                    case SNAKE: if (i === snake[snake.length - 1][0] && j === snake[snake.length - 1][1]) img = gameImageAssets.cVirusHead;
+                                else img = gameImageAssets.cVirus;
                         break;
                     case WALL: img = gameImageAssets.sanitizer;
                         break;
