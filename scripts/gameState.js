@@ -133,8 +133,10 @@ let gameState = (function() {
             default:            x=1; break;
         }
         console.log("DIRECTION: " + key);
-     
-        let futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
+        
+        let futureHeadLocation;
+        if((snake[snake.length-1][0] < 1 && y===-1) || (snake[snake.length-1][1] < 1 && x===-1)) futureHeadLocation = undefined;
+        else futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
         console.log("FUTURE HEAD LOCATION : " + futureHeadLocation);
         // undefined if gets out of map
         if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
