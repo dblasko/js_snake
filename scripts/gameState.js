@@ -45,13 +45,13 @@ let gameState = (function() {
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
         // padding for the unused space, depending on the level dimensions
-        // let oX=(canvas.width-squareSize*levelData.dimensions[0])/2;
-		// let oY=(canvas.height-squareSize*levelData.dimensions[1])/2;
-        /*ctx.fillStyle='#c8e65e';
+        let oX=(canvas.width-squareSize*levelData.dimensions[0])/2;
+		let oY=(canvas.height-squareSize*levelData.dimensions[1])/2;
+        ctx.fillStyle='#c8e65e';
         ctx.fillRect(0, 0, oX, canvas.height);
 		ctx.fillRect(0, 0, canvas.width, oY);
 		ctx.fillRect(oX+squareSize*levelData.dimensions[0], 0, oX, canvas.height);
-		ctx.fillRect(0, oY+squareSize*levelData.dimensions[1], canvas.width, oY);*/
+		ctx.fillRect(0, oY+squareSize*levelData.dimensions[1], canvas.width, oY);
 
         for (i=0; i<world.length; i++) {
             for (j=0; j<world[i].length; j++) {
@@ -64,7 +64,7 @@ let gameState = (function() {
                     case FOOD: img = gameImageAssets.paper;
                         break;
                 }
-                if (img != undefined) ctx.drawImage(img, squareSize*j, squareSize*i, squareSize, squareSize);
+                if (img != undefined) ctx.drawImage(img, oY+squareSize*j, oX+squareSize*i, squareSize, squareSize);
             }
         }
         
