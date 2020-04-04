@@ -14,6 +14,9 @@ let gameState = (function() {
     let score = 0;
     let intervalId = -1; // to stop the interval when game is left
 
+    let cHeight = undefined;
+    let cWidth = undefined;
+
     function notifyLevelSelected(level) {
         fetch(`./assets/levels/${level}.json`).then(response=>{
             if (response.ok) {
@@ -42,8 +45,10 @@ let gameState = (function() {
         // clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        canvas.width=ctZone.clientWidth;
-        canvas.height=ctZone.clientHeight;
+        if (cHeight == undefined) cHeight = ctZone.clientHeight*0.9;
+        if (cWidth == undefined) cWidth = ctZone.clientWidth;
+        canvas.width=cWidth;
+        canvas.height=cHeight;
 
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
