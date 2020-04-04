@@ -33,11 +33,6 @@ let gameState = (function() {
     }
 
     function drawGameState() {
-        // effacer PUIS redessiner
-        /*let canvas = document.getElementById("cnv");
-        let ctx = canvas.getContext("2d");
-        // clear the canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);*/
         let canvas = document.getElementById("cnv");
         let ctx = canvas.getContext("2d");
         let ctZone = document.getElementById("contentZone");
@@ -49,7 +44,6 @@ let gameState = (function() {
         if (cWidth == undefined) cWidth = ctZone.clientWidth;
         canvas.width=cWidth;
         canvas.height=cHeight;
-        console.log("Height : " + cHeight);
 
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
@@ -73,7 +67,7 @@ let gameState = (function() {
                     case FOOD: img = gameImageAssets.paper;
                         break;
                 }
-                if (img != undefined) ctx.drawImage(img, oY+squareSize*j, oX+squareSize*i, squareSize, squareSize);
+                if (img != undefined) ctx.drawImage(img, oX+squareSize*j, oY+squareSize*i, squareSize, squareSize);
             }
         }
         
