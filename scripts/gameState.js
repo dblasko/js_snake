@@ -41,9 +41,6 @@ let gameState = (function() {
 
         // clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-        canvas.width=ctZone.clientWidth;
-        canvas.height=ctZone.clientHeight;
 
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
@@ -67,7 +64,7 @@ let gameState = (function() {
                     case FOOD: img = gameImageAssets.paper;
                         break;
                 }
-                if (img != undefined) ctx.drawImage(img, squareSize*i, squareSize*j, squareSize, squareSize);
+                if (img != undefined) ctx.drawImage(img, squareSize*j, squareSize*i, squareSize, squareSize);
             }
         }
         
@@ -97,6 +94,9 @@ let gameState = (function() {
 
     function startGame() { // private 
         viewHandler.loadScreen(viewHandler.GAME); // TODO : afficher après draw ?
+        let canvas = document.getElementById("cnv");
+        canvas.width=ctZone.clientWidth;
+        canvas.height=ctZone.clientHeight;
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
         key = validKeys[1];
         score = 0;
