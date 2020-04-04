@@ -156,6 +156,7 @@ let gameState = (function() {
             console.log("SNAKE : " + snake);
             for (s of snake) {
                 console.log("> World correspondance : " + world[s[0]][s[1]]);
+                console.log("> World correspondance next : " + world[s[0] - 1][s[1]]);
             }
             drawGameState(); // data is updated, update the game screen
         } else { // WALL ou SNAKE : both cases, user has lost
