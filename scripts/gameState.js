@@ -40,6 +40,7 @@ let gameState = (function() {
         // clear the canvas
         ctx.fillStyle ="black";
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0,0,canvas.width, canvas.height);
 
         if (cHeight == undefined) cHeight = ctZone.clientHeight*0.9;
         if (cWidth == undefined) cWidth = ctZone.clientWidth;
