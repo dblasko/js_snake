@@ -43,7 +43,7 @@ let gameState = (function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     
         canvas.width=ctZone.clientWidth;
-        canvas.height=ctZone.clientHeight*0.9;
+        canvas.height=ctZone.clientHeight;
 
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
