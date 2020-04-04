@@ -53,8 +53,8 @@ let gameState = (function() {
         ctx.fillStyle='#c8e65e';
         ctx.fillRect(0, 0, oY, canvas.height);
 		ctx.fillRect(0, 0, canvas.width, oX);
-        ctx.fillRect(oY+squareSize*levelData.dimensions[0], 0, oY, canvas.height);
-		ctx.fillRect(0, oX+squareSize*levelData.dimensions[1], canvas.width, oX);
+        ctx.fillRect(0, oY+squareSize*levelData.dimensions[0], canvas.height, oY);
+		ctx.fillRect(oX+squareSize*levelData.dimensions[1], 0, oX, canvas.width);
 
         for (i=0; i<world.length; i++) {
             for (j=0; j<world[i].length; j++) {
