@@ -131,6 +131,7 @@ let gameState = (function() {
             case "ArrowLeft":   y=-1; break;
             default:            y=1; break;
         }
+        console.log("DIRECTION: " + key);
      
         let futureHeadLocation = world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y]; // head is at the last position of the snake array
         console.log("FUTURE HEAD LOCATION : " + futureHeadLocation);
