@@ -49,6 +49,7 @@ let gameState = (function() {
         if (cWidth == undefined) cWidth = ctZone.clientWidth;
         canvas.width=cWidth;
         canvas.height=cHeight;
+        console.log("Height : " + cHeight);
 
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
