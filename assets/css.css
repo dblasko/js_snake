@@ -10,9 +10,6 @@ body {
     font-family: Cinzel;
     transition: 0.7s;
     text-size-adjust: auto;
-    display: flex;
-    flex-flow: column;
-    height: 100%;
 }
 
 h1 {
@@ -33,8 +30,7 @@ h1 > mark {
 
 #contentZone {
     width: 100%;
-    height: 100%;
-    flex-grow : 1;
+    height: 70vh;
 }
 
 #contentZone p {
