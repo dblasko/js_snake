@@ -149,7 +149,7 @@ let gameState = (function() {
             } else { // he just moves forward (empty)
                 console.log("EMPTY MOVE");
                 snake.push([snake[snake.length-1][0]+x, snake[snake.length-1][1]+y]);
-                let poppedTail = snake.pop();
+                let poppedTail = snake.shift();
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
             }
             world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y] = SNAKE; // head
