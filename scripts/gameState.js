@@ -40,7 +40,7 @@ let gameState = (function() {
         // clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (cHeight == undefined) cHeight = ctZone.clientHeight*0.9;
+        if (cHeight == undefined) cHeight = ctZone.clientHeight; //*0.9;
         if (cWidth == undefined) cWidth = ctZone.clientWidth;
         canvas.width=cWidth;
         canvas.height=cHeight;
@@ -154,9 +154,7 @@ let gameState = (function() {
                 // the head will override the old food
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten
                 // WE ACCELERATE THE SNAKE IF POSSIBLE
-                tryStopStepping();
-                if(levelData.delay > 100) levelData.delay -= 50;
-                intervalId = window.setInterval(step, levelData.delay);
+                accelerateStepping();
             } else { // he just moves forward (empty)
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]);
                 let poppedTail = snake.shift();
@@ -177,6 +175,12 @@ let gameState = (function() {
             clearInterval(intervalId);
             intervalId = -1; // to not re-try stopping if the user clicks on the button again
         }
+    }
+
+    function accelerateStepping() { // snake has eaten : he accelerates
+        tryStopStepping();
+        if(levelData.delay > levelData.minDelay) levelData.delay -= 50;
+        intervalId = window.setInterval(step, levelData.delay);
     }
 
     return { // public attributes / methods
