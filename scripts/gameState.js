@@ -48,8 +48,8 @@ let gameState = (function() {
         const squareSize = Math.min(canvas.height/levelData.dimensions[1], canvas.width/levelData.dimensions[0]);
 
         // padding for the unused space, depending on the level dimensions
-        let oX=(canvas.width-squareSize*levelData.dimensions[0])/2;
-		let oY=(canvas.height-squareSize*levelData.dimensions[1])/2;
+        // let oX=(canvas.width-squareSize*levelData.dimensions[0])/2;
+		// let oY=(canvas.height-squareSize*levelData.dimensions[1])/2;
         /*ctx.fillStyle='#c8e65e';
         ctx.fillRect(0, 0, oX, canvas.height);
 		ctx.fillRect(0, 0, canvas.width, oY);
@@ -67,7 +67,7 @@ let gameState = (function() {
                     case FOOD: img = gameImageAssets.paper;
                         break;
                 }
-                if (img != undefined) ctx.drawImage(img, oX+squareSize*i, oY+squareSize*j, squareSize, squareSize);
+                if (img != undefined) ctx.drawImage(img, squareSize*i, squareSize*j, squareSize, squareSize);
             }
         }
         
