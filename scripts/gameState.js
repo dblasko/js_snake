@@ -38,10 +38,10 @@ let gameState = (function() {
         let ctZone = document.getElementById("contentZone");
 
         // clear the canvas
-        ctx.fillStyle='#c8e65e';
+        ctx.fillStyle ="grey";
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (cHeight == undefined) cHeight = ctZone.clientHeight; //*0.9;
+        if (cHeight == undefined) cHeight = ctZone.clientHeight*0.9;
         if (cWidth == undefined) cWidth = ctZone.clientWidth;
         canvas.width=cWidth;
         canvas.height=cHeight;
@@ -51,7 +51,7 @@ let gameState = (function() {
         // padding for the unused space, depending on the level dimensions
         let oX=(canvas.width-squareSize*levelData.dimensions[1])/2;
 		let oY=(canvas.height-squareSize*levelData.dimensions[0])/2;
-        ctx.fillStyle='white';
+        ctx.fillStyle='#c8e65e';
         ctx.fillRect(0, 0, oX, canvas.height);
 		ctx.fillRect(0, 0, canvas.width, oY);
 		ctx.fillRect(oX+squareSize*levelData.dimensions[1], 0, oX, canvas.height);
