@@ -99,7 +99,7 @@ let gameState = (function() {
         viewHandler.loadScreen(viewHandler.GAME); // TODO : afficher après draw ?
         
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
-        key = validKeys[1];
+        key = validKeys[1]; keyPressed = validKeys[1];
         score = 0;
         snake = levelData.snake; 
         console.log("GENERATING WORD : " + levelData.dimensions);
@@ -153,6 +153,10 @@ let gameState = (function() {
                 world[y1][x1] = FOOD;
                 // the head will override the old food
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten
+                // WE ACCELERATE THE SNAKE IF POSSIBLE
+                tryStopStepping();
+                if(levelData.delay > 100) levelData.delay -= 50;
+                intervalId = window.setInterval(step, levelData.delay);
             } else { // he just moves forward (empty)
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]);
                 let poppedTail = snake.shift();
