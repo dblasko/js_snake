@@ -13,6 +13,7 @@ let gameImageAssets = (function() {
 
     return {
         cVirus: cVirus,
+        cVirusHead: cVirusHead,
         sanitizer: sanitizer,
         paper: paper,
     };
