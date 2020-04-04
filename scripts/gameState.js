@@ -152,7 +152,7 @@ let gameState = (function() {
                 let poppedTail = snake.shift();
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
             }
-            world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y] = SNAKE; // head
+            world[snake[snake.length-1][0]][snake[snake.length-1][1]] = SNAKE; // head
             console.log("SNAKE : " + snake);
             for (s of snake) {
                 console.log("> World correspondance : " + world[s[0]][s[1]]);
