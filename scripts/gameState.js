@@ -153,7 +153,10 @@ let gameState = (function() {
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
             }
             world[snake[snake.length-1][0]+x][snake[snake.length-1][1]+y] = SNAKE; // head
-            
+            console.log("SNAKE : " + snake);
+            for (s of snake) {
+                console.log("> Worl correspondance : " + world[s[0]][s[1]]);
+            }
             drawGameState(); // data is updated, update the game screen
         } else { // WALL ou SNAKE : both cases, user has lost
             //console.log(snake);
