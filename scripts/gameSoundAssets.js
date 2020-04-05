@@ -1,4 +1,4 @@
-let gameImageAssets = (function() {
+let gameSoundAssets = (function() {
     let cardiVirus = new Audio('/assets/audio/cardi.mp3');
     let cough = new Audio('/assets/audio/cough.mp3');
     let eatSounds = [cardiVirus, cough];
