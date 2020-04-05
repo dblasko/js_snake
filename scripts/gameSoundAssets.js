@@ -1,4 +1,5 @@
 let gameSoundAssets = (function() {
+    // Using buzz for a more elegant support of deprecated browsers than vanilla HTML5 audio tag
     const audioPath = '/assets/audio/';
     const cardiVirus = new buzz.sound(audioPath + 'cardi.mp3', {});
     const cough = new buzz.sound(audioPath + 'cough.mp3', {});
@@ -20,6 +21,7 @@ let gameSoundAssets = (function() {
     function playStep() {
         step.play().fadeIn();
     }
+    
 
     return {
         playEat: playEat,

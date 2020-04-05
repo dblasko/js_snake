@@ -1,3 +1,5 @@
+//while(viewHandler.assetsLoaded != 2) console.log("waiting for assets to loead");
+
 let gameState = (function() {
     const validKeys = ["ArrowRight", "ArrowUp", "ArrowLeft", "ArrowDown"];
     // CONCEPT : if index < 2 : can't change direction to index+2, if >= 2, can't change to index-2 for incoherent changes

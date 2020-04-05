@@ -11,6 +11,7 @@ let gameImageAssets = (function() {
     let paper = new Image;
     paper.src = "/assets/paper.png";
 
+    
     return {
         cVirus: cVirus,
         cVirusHead: cVirusHead,
