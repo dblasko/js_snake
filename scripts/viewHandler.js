@@ -45,8 +45,6 @@ let viewHandler = (function() {
         MENU: MENU,
         GAME: GAME,
 
-        canStart: canStart,
-
         loadScreen: loadScreen,
         popMessage: popMessage,
     };
