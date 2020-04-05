@@ -14,7 +14,7 @@ let gameSoundAssets = (function() {
         /*randomSound.currentTime = 0;
         randomSound.play();*/
         let sound = new buzz.sound(randomSound, {});
-        sound.play.fadeIn();
+        sound.play().fadeIn();
     }
 
     function playDead() {
