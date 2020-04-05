@@ -7,10 +7,13 @@ let gameSoundAssets = (function() {
 
     function playEat() {
         let randomSound = eatSounds[Math.floor((Math.random()*eatSounds.length))];
+        randomSound.currentTime = 0;
         randomSound.play();
     }
 
     function playDead() {
+        console.log("playing");
+        randomSound.currentTime = 0;
         dead.play();
     }
 
