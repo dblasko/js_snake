@@ -3,7 +3,7 @@ let gameSoundAssets = (function() {
     let cough = new Audio('/assets/audio/cough.mp3');
     let eatSounds = [cardiVirus, cough];
 
-    let dead = new Audio('/assets/audio/roblox_death.mp');
+    let dead = new Audio('/assets/audio/roblox_death.mp3');
 
     function playEat() {
         let randomSound = eatSounds[Math.floor((Math.random()*eatSounds.length))];
