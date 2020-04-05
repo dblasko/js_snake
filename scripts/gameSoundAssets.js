@@ -1,14 +1,17 @@
 let gameSoundAssets = (function() {
-    let cardiVirus = new Audio('/assets/audio/cardi.mp3');
-    let cough = new Audio('/assets/audio/cough.mp3');
-    let eatSounds = [cardiVirus, cough];
+    const cardiVirus = '/assets/audio/cardi.mp3'
+    // const cough = new Audio('/assets/audio/cough.mp3');
+    const cough = '/assets/audio/cough.mp3';
+    const eatSounds = [cardiVirus, cough];
 
-    let dead = new Audio('/assets/audio/roblox_death.mp3');
+    const dead = '/assets/audio/roblox_death.mp3';
 
     function playEat() {
         let randomSound = eatSounds[Math.floor((Math.random()*eatSounds.length))];
-        randomSound.currentTime = 0;
-        randomSound.play();
+        /*randomSound.currentTime = 0;
+        randomSound.play();*/
+        let sound = new buzz.sound(randomSound, {});
+        sound.play.fadeIn();
     }
 
     function playDead() {
@@ -19,10 +22,8 @@ let gameSoundAssets = (function() {
         source.src = "/assets/audio/roblox_death.mp3";
         let audio = document.getElementById('player');
         audio.play();*/
-        var mySound = new buzz.sound( "/assets/audio/roblox_death.mp3", {});
-
-        mySound.play()
-    .fadeIn();
+        let sound = new buzz.sound(dead, {});
+        sound.play().fadeIn();
     }
 
     return {
