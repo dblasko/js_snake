@@ -15,10 +15,21 @@ let gameSoundAssets = (function() {
         /*console.log("playing");
         dead.currentTime = 0;
         dead.play();*/
-        let source = document.getElementById("source");
+        /*let source = document.getElementById("source");
         source.src = "/assets/audio/roblox_death.mp3";
         let audio = document.getElementById('player');
-        audio.play();
+        audio.play();*/
+        var mySound = new buzz.sound( "/assets/audio/roblox_death.mp3", {
+            formats: [ "mp3" ]
+        });
+
+        mySound.play()
+    .fadeIn()
+    .loop()
+    .bind( "timeupdate", function() {
+       var timer = buzz.toTimer( this.getTime() );
+       document.getElementById( "timer" ).innerHTML = timer;
+    });
     }
 
     return {
