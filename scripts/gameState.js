@@ -159,6 +159,8 @@ let gameState = (function() {
                 world[y1][x1] = FOOD;
                 // the head will override the old food
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten
+                // play sound
+                gameSoundAssets.playEat();
                 // WE ACCELERATE THE SNAKE IF POSSIBLE
                 accelerateStepping();
             } else { // he just moves forward (empty)
@@ -169,6 +171,7 @@ let gameState = (function() {
             world[snake[snake.length-1][0]][snake[snake.length-1][1]] = SNAKE; // head
             drawGameState(); // data is updated, update the game screen
         } else { // WALL or SNAKE : both cases, user has lost
+            gameSoundAssets.playDead();
             tryStopStepping();
             showGameEnded();
         }
