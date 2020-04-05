@@ -12,9 +12,13 @@ let gameSoundAssets = (function() {
     }
 
     function playDead() {
-        console.log("playing");
+        /*console.log("playing");
         dead.currentTime = 0;
-        dead.play();
+        dead.play();*/
+        let source = document.getElementById("source");
+        source.src = "/assets/audio/roblox_death.mp3";
+        let audio = document.getElementById('player');
+        audio.play();
     }
 
     return {
