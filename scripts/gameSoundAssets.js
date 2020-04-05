@@ -13,7 +13,7 @@ let gameSoundAssets = (function() {
 
     function playDead() {
         console.log("playing");
-        randomSound.currentTime = 0;
+        dead.currentTime = 0;
         dead.play();
     }
 
