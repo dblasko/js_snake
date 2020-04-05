@@ -71,6 +71,11 @@ let gameState = (function() {
                         break;
                 }
                 if (img != undefined) ctx.drawImage(img, oX+squareSize*j, oY+squareSize*i, squareSize, squareSize);
+                // Draw the tile outline
+                ctx.beginPath();
+                ctx.strokeStyle = '#c8e65e';
+                ctx.rect(oX+squareSize*j, oY+squareSize*i, squareSize, squareSize);
+                ctx.stroke();
             }
         }
         
