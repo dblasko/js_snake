@@ -6,7 +6,7 @@ let gameSoundAssets = (function() {
 
     const dead = new buzz.sound(audioPath + 'roblox_death.mp3', {});
 
-    const step = audioPath + new buzz.sound(audioPath + 'step.mp3', {});
+    const step = new buzz.sound(audioPath + 'step.mp3', {});
 
     function playEat() {
         let randomSound = eatSounds[Math.floor((Math.random()*eatSounds.length))];
