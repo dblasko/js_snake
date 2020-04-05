@@ -19,9 +19,7 @@ let gameSoundAssets = (function() {
         source.src = "/assets/audio/roblox_death.mp3";
         let audio = document.getElementById('player');
         audio.play();*/
-        var mySound = new buzz.sound( "/assets/audio/roblox_death.mp3", {
-            formats: [ "mp3" ]
-        });
+        var mySound = new buzz.sound( "/assets/audio/roblox_death.mp3", {});
 
         mySound.play()
     .fadeIn()
