@@ -164,6 +164,7 @@ let gameState = (function() {
                 // WE ACCELERATE THE SNAKE IF POSSIBLE
                 accelerateStepping();
             } else { // he just moves forward (empty)
+                gameSoundAssets.playStep();
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]);
                 let poppedTail = snake.shift();
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
