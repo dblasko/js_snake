@@ -22,12 +22,7 @@ let gameSoundAssets = (function() {
         var mySound = new buzz.sound( "/assets/audio/roblox_death.mp3", {});
 
         mySound.play()
-    .fadeIn()
-    .loop()
-    .bind( "timeupdate", function() {
-       var timer = buzz.toTimer( this.getTime() );
-       document.getElementById( "timer" ).innerHTML = timer;
-    });
+    .fadeIn();
     }
 
     return {
