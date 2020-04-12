@@ -11,8 +11,8 @@ let gameState = (function() {
     let snake;
     let world;
     let levelData;
-    let key = undefined; // current moving direction
-    let keyPressed = undefined; // buffer => request for moving direction change
+    let key; // current moving direction
+    let keyPressed; // buffer => request for moving direction change
     let score = 0;
     let intervalId = -1; // to stop the interval when game is left
 
@@ -108,7 +108,7 @@ let gameState = (function() {
         viewHandler.loadScreen(viewHandler.GAME); 
         
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
-        //key = validKeys[1]; keyPressed = validKeys[1];
+        key = undefined; keyPressed = undefined;
         score = 0;
         snake = levelData.snake; 
         console.log("GENERATING WORD : " + levelData.dimensions);
