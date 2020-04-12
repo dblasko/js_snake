@@ -135,7 +135,7 @@ let gameState = (function() {
             if (validKeys.indexOf(key) !== validKeys.indexOf(keyPressed) - 2) key = keyPressed;
         }
 
-        if (key == undefined) return; // we wait for the user to choose a direction to start the game
+        if (key == undefined) return; // we wait for the user to choose a direction to start the game (undefined while he hasen't chosen a direction, can't get back to undefined)
 
         let x=0, y=0; // determine movement direction
         switch(key) {
