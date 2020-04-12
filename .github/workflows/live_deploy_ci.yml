@@ -25,7 +25,6 @@ jobs:
     - name: SFTP Deploy
       uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        # username
         username: ${{ secrets.FTP_LOGIN }}
         # your sftp server
         server: ${{ secrets.FTP_SERVER }}
