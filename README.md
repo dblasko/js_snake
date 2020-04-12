@@ -7,9 +7,9 @@ A practical project for my JS course.
 
 
 ## Test it live ! 🚀
-A version of the project is currently running **[HERE](http://51.77.193.23:8000/)**.
+The CI (Github Actions) should ensu version of the project is currently running **[HERE](http://51.77.193.23:8000/)**.
 
-However, if you want to be sure to try the latest version, refer to the *Running the project* section below.
+However, if you want to try running the project locally or if the live version is down, please refer to the *Running the project* section below.
 
 
 ## Running the project 💻
