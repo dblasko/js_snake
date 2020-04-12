@@ -13,42 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-#     - name: FTP Deploy
-#       uses: SamKirkland/FTP-Deploy-Action@3.0.0
-#       with:
-#         ftp-server: ${{ secrets.FTP_SERVER }}
-#         ftp-username: ${{ secrets.FTP_LOGIN }}
-#         ftp-password: ${{ secrets.FTP_PWD }}
-#         git-ftp-args: --insecure
-        
-        
-#     - name: SFTP Deploy
-#       uses: wlixcc/SFTP-Deploy-Action@v1.0
-#       with:
-#         username: ${{ secrets.FTP_LOGIN }}
-#         # your sftp server
-#         server: ${{ secrets.FTP_SERVER }}
-#         # your sftp server port, default to 22
-#         port: 22
-#         # you can copy private_key from your *.pem file, keep format
-#         ssh_private_key: ${{ secrets.FTP_SSH_PRIV_KEY }}
-#         # will put all file under this path
-#         # files will copy to under remote_path
-#         remote_path: /js_snake
-    - name: Copy via ssh
+    - name: Copy files to server via SSH
       uses: garygrossgarten/github-action-scp@v0.5.3
       with:
-        # Path to the local folder you want to copy.
         local: /home/runner/work/js_snake/js_snake
-        # Path on the remote server to copy to.
         remote: js_snake
-        # Hostname or IP address of the server.
         host: ${{ secrets.FTP_SERVER }}
-        # Username for authentication.
         username: ${{ secrets.FTP_LOGIN }}
-        # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
-        # privateKey: # optional
-        # Password for password-based user authentication.
         password: ${{ secrets.FTP_PWD }}
         # Try keyboard-interactive user authentication if primary user authentication method fails.
         tryKeyboard: true
