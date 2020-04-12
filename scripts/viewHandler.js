@@ -10,7 +10,7 @@ let viewHandler = (function() {
     let currentScreen = MENU; // current screen
 
     function cleanContentZone() {
-        contentZone.innerHTML = "";
+        contentZone.innerText = "";
     }
 
     function updateWelcomeQuote() {
@@ -36,7 +36,7 @@ let viewHandler = (function() {
     function popMessage(msg) {  // to show an error msg for 3 seconds
         var snackbar = document.getElementById("snackbar");
         snackbar.className = "show";
-        snackbar.innerHTML = msg;
+        snackbar.innerText = msg;
         snackbar.hidden = false;
         setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); snackbar.hidden=true; }, 3000);
     }

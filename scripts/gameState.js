@@ -89,7 +89,7 @@ let gameState = (function() {
         let leave = document.getElementsByClassName("close")[0];
         let scoreSpan = document.getElementById("scoreSpan");
 
-        scoreSpan.innerHTML = score;
+        scoreSpan.innerText = score;
         modal.style.display = "block";
 
         leave.onclick = function() {
@@ -179,7 +179,7 @@ let gameState = (function() {
             showGameEnded();
         }
         //update the score visually
-        document.getElementById("score").innerHTML = score;
+        document.getElementById("score").innerText = score;
     }
 
     function tryStopStepping() { // to stop the game (when the user gets back to the menu)
