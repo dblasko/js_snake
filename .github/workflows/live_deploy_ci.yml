@@ -34,4 +34,4 @@ jobs:
         ssh_private_key: ${{ secrets.FTP_SSH_PRIV_KEY }}
         # will put all file under this path
         # files will copy to under remote_path
-        remote_path: /js_snake/
+        remote_path: /js_snake
