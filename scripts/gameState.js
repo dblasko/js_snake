@@ -11,8 +11,8 @@ let gameState = (function() {
     let snake;
     let world;
     let levelData;
-    let key; // current moving direction
-    let keyPressed; // buffer => request for moving direction change
+    let key = undefined; // current moving direction
+    let keyPressed = undefined; // buffer => request for moving direction change
     let score = 0;
     let intervalId = -1; // to stop the interval when game is left
 
@@ -104,11 +104,11 @@ let gameState = (function() {
         }
     }
 
-    function startGame() { // private 
-        viewHandler.loadScreen(viewHandler.GAME); // TODO : afficher après draw ?
+    function startGame() { 
+        viewHandler.loadScreen(viewHandler.GAME); 
         
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
-        key = validKeys[1]; keyPressed = validKeys[1];
+        //key = validKeys[1]; keyPressed = validKeys[1];
         score = 0;
         snake = levelData.snake; 
         console.log("GENERATING WORD : " + levelData.dimensions);
@@ -134,6 +134,9 @@ let gameState = (function() {
         } else { // index >= 2 
             if (validKeys.indexOf(key) !== validKeys.indexOf(keyPressed) - 2) key = keyPressed;
         }
+
+        if (key == undefined) return; // we wait for the user to choose a direction to start the game
+
         let x=0, y=0; // determine movement direction
         switch(key) {
             case "ArrowUp":     y=-1; break;
