@@ -39,7 +39,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@v0.5.3
       with:
         # Path to the local folder you want to copy.
-        local: js_snake
+        local: /home/runner/work/js_snake/js_snake
         # Path on the remote server to copy to.
         remote: js_snake
         # Hostname or IP address of the server.
