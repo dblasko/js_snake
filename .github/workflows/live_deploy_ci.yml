@@ -37,5 +37,3 @@ jobs:
         # will put all file under this path
         # files will copy to under remote_path
         remote_path: /js_snake/
-        # sftp args
-        args: --insecure
