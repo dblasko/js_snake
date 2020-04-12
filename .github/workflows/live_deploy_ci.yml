@@ -14,10 +14,28 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
     - uses: actions/checkout@v2
 
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@3.0.0
+#     - name: FTP Deploy
+#       uses: SamKirkland/FTP-Deploy-Action@3.0.0
+#       with:
+#         ftp-server: ${{ secrets.FTP_SERVER }}
+#         ftp-username: ${{ secrets.FTP_LOGIN }}
+#         ftp-password: ${{ secrets.FTP_PWD }}
+#         git-ftp-args: --insecure
+        
+        
+    - name: SFTP Deploy
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        ftp-server: ${{ secrets.FTP_SERVER }}
-        ftp-username: ${{ secrets.FTP_LOGIN }}
-        ftp-password: ${{ secrets.FTP_PWD }}
-        git-ftp-args: --insecure
+        # username
+        username: ${{ secrets.FTP_LOGIN }}
+        # your sftp server
+        server: ${{ secrets.FTP_SERVER }}
+        # your sftp server port, default to 22
+        port: 22
+        # you can copy private_key from your *.pem file, keep format
+        ssh_private_key: ${{ secrets.FTP_SSH_PRIV_KEY }}
+        # will put all file under this path
+        # files will copy to under remote_path
+        remote_path: /js_snake/
+        # sftp args
+        args: --insecure
