@@ -1,7 +1,8 @@
 let gameState = (function() {
-    const EMPTY = 'E', SNAKE = 'S', FOOD = 'F', FOOD_ALT = 'FA', WALL = 'W';
+    const EMPTY = 'E', SNAKE = 'S', FOOD = 'F', WALL = 'W';
+    const FT_CLASSIC = 'C', FT_SHRINKING = 'K';
 
-    let snake, world, levelData, score, ticksWithoutEating;
+    let snake, world, levelData, score, ticksWithoutEating, currentFoodType;
     let x, y;
     let intervalId = -1; // to stop the interval when game is left
 
@@ -57,9 +58,8 @@ let gameState = (function() {
                         break;
                     case WALL: img = gameImageAssets.sanitizer;
                         break;
-                    case FOOD: img = gameImageAssets.paper;
-                        break;
-                    case FOOD_ALT: img = gameImageAssets.vaccine;
+                    case FOOD: if (currentFoodType === FT_SHRINKING) img = gameImageAssets.vaccine;
+                        else img = gameImageAssets.paper;
                         break;
                 }
                 if (img != undefined) ctx.drawImage(img, oX+squareSize*j, oY+squareSize*i, squareSize, squareSize);
@@ -99,6 +99,7 @@ let gameState = (function() {
         
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
         x = undefined; y = undefined;
+        currentFoodType = FT_CLASSIC;
         gameInputManager.notifyNewGame();
         score = 0; ticksWithoutEating = 0;
         snake = levelData.snake; 
@@ -118,18 +119,20 @@ let gameState = (function() {
     }
 
     function generateRandomFoodOnMap() {
+        let x1, y1;
         do { // generate random coordinates where the map is empty
             y1 = Math.floor((Math.random()*world.length));
             x1 = Math.floor((Math.random()*world[0].length));
         } while(world[y1][x1] != EMPTY); 
-        world[y1][x1] = (Math.floor(Math.random() * 10) <=2)? FOOD_ALT : FOOD; // 0.3% chance of having FOOD_ALT
+        world[y1][x1] = FOOD;
+        currentFoodType = (Math.floor(Math.random() * 10) <=1)? FT_SHRINKING : FT_CLASSIC; // 0.2% chance of having FT_SHRINKING
         ticksWithoutEating = 0;
     }
 
     function removeFoodFromMap() {
         world.forEach((row, rowIndex) => {
             row.forEach((cell, colIndex) => {
-                if (cell === FOOD || cell === FOOD_ALT) world[rowIndex][colIndex] = EMPTY;
+                if (cell === FOOD) world[rowIndex][colIndex] = EMPTY;
             })
         });
     }
@@ -153,18 +156,17 @@ let gameState = (function() {
             futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
         }
 
-        if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === FOOD_ALT || futureHeadLocation === EMPTY)) {
-            if (futureHeadLocation === FOOD || futureHeadLocation === FOOD_ALT) {
-                score++; ticksWithoutEating = 0; 
-                let x1, y1;
-                generateRandomFoodOnMap(); // the head will override the old food, no need to delete it
-                if (futureHeadLocation === FOOD_ALT) popSnakeTail(3); // if food_alt, the snake moves + shrinks (=> 2 pops)
-                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // else, normal food, we don't pop the tail to make him grow
+        if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
+            if (futureHeadLocation === FOOD) {
                 gameSoundAssets.playEat(); // play sound
+                score++; ticksWithoutEating = 0; 
+                if (currentFoodType === FT_SHRINKING) popSnakeTail(3); // if FT_SHRINKING, the snake moves + shrinks (=> 2 pops)
+                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // else, normal food, we don't pop the tail to make him grow
+                generateRandomFoodOnMap(); // the head will override the old food, no need to delete it
                 accelerateStepping(); // accelerate if below the limit
             } else { // he just moves forward (EMPTY)
                 gameSoundAssets.playStep();
-                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // add new head to snake
+                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // add new head to snake, then pop tail to move
                 popSnakeTail(1);
                 if (++ticksWithoutEating >= levelData.maxTicksWithoutEating) { // to repop food after a while
                     removeFoodFromMap();
