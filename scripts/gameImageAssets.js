@@ -13,11 +13,15 @@ let gameImageAssets = (function() {
     let paper = new Image;
     paper.src = imageBasePath + "paper.png";
 
+    let vaccine = new Image;
+    vaccine.src = imageBasePath + "vaccine.png";
+
     
     return {
         cVirus: cVirus,
         cVirusHead: cVirusHead,
         sanitizer: sanitizer,
         paper: paper,
+        vaccine: vaccine,
     };
 }());
