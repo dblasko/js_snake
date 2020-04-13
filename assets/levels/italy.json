@@ -1,5 +1,5 @@
 {
-    "dimensions": [10, 20],
+    "dimensions": [50, 60],
     "delay": 200,
     "minDelay": 50,
     "walls": [
