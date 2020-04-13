@@ -2,6 +2,7 @@
     "dimensions": [30, 40],
     "delay": 200,
     "minDelay": 50,
+    "maxTicksWithoutEating": 60,
     "walls": [
         
     ],

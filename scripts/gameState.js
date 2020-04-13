@@ -1,18 +1,12 @@
 let gameState = (function() {
-    const EMPTY = 'E';
-    const SNAKE = 'S';
-    const FOOD = 'F';
-    const WALL = 'W';
+    const EMPTY = 'E', SNAKE = 'S', FOOD = 'F', WALL = 'W';
 
-    let snake;
-    let world;
-    let levelData;
+    let snake, world, levelData, score, ticksWithoutEating;
     let x, y;
-    let score = 0;
     let intervalId = -1; // to stop the interval when game is left
 
-    let cHeight = undefined;
-    let cWidth = undefined;
+    let cHeight = undefined, cWidth = undefined;
+
 
     function notifyLevelSelected(level) {
         fetch(`./assets/levels/${level}.json`).then(response=>{
@@ -104,15 +98,14 @@ let gameState = (function() {
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
         x = undefined; y = undefined;
         gameInputManager.notifyNewGame();
-        score = 0;
+        score = 0; ticksWithoutEating = 0;
         snake = levelData.snake; 
         world = Array(levelData.dimensions[0]).fill(EMPTY).map(x => Array(levelData.dimensions[1]).fill(EMPTY));
         for (snakePart of snake) world[snakePart[0]][snakePart[1]] = SNAKE;
         for (wall of levelData.walls) world[wall[0]][wall[1]] = WALL;
         for (food of levelData.food) world[food[0]][food[1]] = FOOD;
 
-        // data is prepared, draw the initial screen and then launch the game
-        drawGameState();
+        drawGameState(); // data is prepared, draw the initial screen and then launch the game
 
         intervalId = window.setInterval(step, levelData.delay);
     }
@@ -128,6 +121,15 @@ let gameState = (function() {
             x1 = Math.floor((Math.random()*world[0].length));
         } while(world[y1][x1] != EMPTY); 
         world[y1][x1] = FOOD;
+        ticksWithoutEating = 0;
+    }
+
+    function removeFoodFromMap() {
+        world.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                if (cell === FOOD) world[rowIndex][colIndex] = EMPTY;
+            })
+        });
     }
 
     function step() {
@@ -143,7 +145,7 @@ let gameState = (function() {
 
         if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
             if (futureHeadLocation === FOOD) {
-                score++;
+                score++; ticksWithoutEating = 0; 
                 let x1, y1;
                 generateRandomFoodOnMap(); // the head will override the old food, no need to delete it
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten => getting longer
@@ -154,6 +156,10 @@ let gameState = (function() {
                 snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // add new head to snake
                 let poppedTail = snake.shift(); // remove the tail from the snake
                 world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from the map
+                if (++ticksWithoutEating >= levelData.maxTicksWithoutEating) { // to repop food after a while
+                    removeFoodFromMap();
+                    generateRandomFoodOnMap(); 
+                }
             }
             world[snake[snake.length-1][0]][snake[snake.length-1][1]] = SNAKE; // add new head to map in both cases
             drawGameState(); // data is updated, we can update the game screen 

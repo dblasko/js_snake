@@ -5,6 +5,7 @@ let gameInputManager = (function() {
     let key;// current moving direction (validated)
     let keyPressed; // buffer => key the user has requested for the moving direction to change
     
+    
     function setKey(pressedKey) {
         if (validKeys.includes(pressedKey)) keyPressed = pressedKey;
     }
