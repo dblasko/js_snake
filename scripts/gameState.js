@@ -122,49 +122,48 @@ let gameState = (function() {
         y = newY;
     }
 
+    function generateRandomFoodOnMap() {
+        do { // generate random coordinates where the map is empty
+            y1 = Math.floor((Math.random()*world.length));
+            x1 = Math.floor((Math.random()*world[0].length));
+        } while(world[y1][x1] != EMPTY); 
+        world[y1][x1] = FOOD;
+    }
+
     function step() {
-        // We ask the gameInputManager module to refresh our direction attributes 
-        gameInputManager.askForDirectionRefresh();
-        // We then verify if the user has chosen an initial direction already, else the game doesn't start
-        if (x == undefined && y == undefined) return;
+        gameInputManager.askForDirectionRefresh(); // We ask the gameInputManager module to refresh our direction attributes 
+        if (x == undefined && y == undefined) return; // We then verify if the user has chosen an initial direction already, else the game doesn't start
         
-        let futureHeadLocation;
+        let futureHeadLocation; // undefined if gets out of map, else the next block the head will be at
         if((snake[snake.length-1][0] >= world.length -1 && y===1) || (y===-1 && snake[snake.length-1][0] <= 0)) {
             futureHeadLocation = undefined;
         } else {
             futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
         }
-        // undefined if gets out of map
+
         if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
             if (futureHeadLocation === FOOD) {
                 score++;
                 let x1, y1;
-                do { // generate random coordinates where the map is empty
-                    y1 = Math.floor((Math.random()*world.length));
-                    x1 = Math.floor((Math.random()*world[0].length));
-                } while(world[y1][x1] != EMPTY); 
-                world[y1][x1] = FOOD;
-                // the head will override the old food
-                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten
-                // play sound
-                gameSoundAssets.playEat();
-                // WE ACCELERATE THE SNAKE IF POSSIBLE
-                accelerateStepping();
-            } else { // he just moves forward (empty)
+                generateRandomFoodOnMap(); // the head will override the old food, no need to delete it
+                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // we don't remove the tail since he's eaten => getting longer
+                gameSoundAssets.playEat(); // play sound
+                accelerateStepping(); // accelerate if below the limit
+            } else { // he just moves forward (EMPTY)
                 gameSoundAssets.playStep();
-                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]);
-                let poppedTail = snake.shift();
-                world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from world
+                snake.push([snake[snake.length-1][0]+y, snake[snake.length-1][1]+x]); // add new head to snake
+                let poppedTail = snake.shift(); // remove the tail from the snake
+                world[poppedTail[0]][poppedTail[1]] = EMPTY; // remove the tail from the map
             }
-            world[snake[snake.length-1][0]][snake[snake.length-1][1]] = SNAKE; // head
-            drawGameState(); // data is updated, update the game screen
+            world[snake[snake.length-1][0]][snake[snake.length-1][1]] = SNAKE; // add new head to map in both cases
+            drawGameState(); // data is updated, we can update the game screen 
         } else { // WALL or SNAKE : both cases, user has lost
             gameSoundAssets.playDead();
             tryStopStepping();
             showGameEnded();
         }
-        //update the score visually
-        document.getElementById("score").innerText = score;
+        
+        document.getElementById("score").innerText = score; //update the score visually
     }
 
     function tryStopStepping() { // to stop the game (when the user gets back to the menu)
