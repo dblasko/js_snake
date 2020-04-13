@@ -1,0 +1,14 @@
+{
+    "dimensions": [10, 20],
+    "delay": 200,
+    "minDelay": 100,
+    "walls": [
+        
+    ],
+    "food": [
+        [3,4]
+    ],
+    "snake": [
+      [0,0]
+    ]
+}
