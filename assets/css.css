@@ -40,7 +40,7 @@ h1 > mark {
     font-weight: bold;
     color: rgb(56, 55, 55);
 
-    background: url("./stroke2.png");
+    background: url("/assets/images/stroke2.png");
     background-repeat: no-repeat;
     background-size: 100% 95%;
     padding: 8px 0;

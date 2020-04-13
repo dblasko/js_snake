@@ -1,8 +1,4 @@
-//while(viewHandler.assetsLoaded != 2) console.log("waiting for assets to loead");
-
 let gameState = (function() {
-    const validKeys = ["ArrowRight", "ArrowUp", "ArrowLeft", "ArrowDown"];
-    // CONCEPT : if index < 2 : can't change direction to index+2, if >= 2, can't change to index-2 for incoherent changes
     const EMPTY = 'E';
     const SNAKE = 'S';
     const FOOD = 'F';
@@ -11,8 +7,7 @@ let gameState = (function() {
     let snake;
     let world;
     let levelData;
-    let key; // current moving direction
-    let keyPressed; // buffer => request for moving direction change
+    let x, y;
     let score = 0;
     let intervalId = -1; // to stop the interval when game is left
 
@@ -23,7 +18,6 @@ let gameState = (function() {
         fetch(`./assets/levels/${level}.json`).then(response=>{
             if (response.ok) {
                 response.json().then(resp => {
-                    console.log(resp);
                     levelData = resp;
                     startGame();
                 });
@@ -108,10 +102,10 @@ let gameState = (function() {
         viewHandler.loadScreen(viewHandler.GAME); 
         
         // we make sure all game data is reinitialised (in case the user went back to the menu during a game)
-        key = undefined; keyPressed = undefined;
+        x = undefined; y = undefined;
+        gameInputManager.notifyNewGame();
         score = 0;
         snake = levelData.snake; 
-        console.log("GENERATING WORD : " + levelData.dimensions);
         world = Array(levelData.dimensions[0]).fill(EMPTY).map(x => Array(levelData.dimensions[1]).fill(EMPTY));
         for (snakePart of snake) world[snakePart[0]][snakePart[1]] = SNAKE;
         for (wall of levelData.walls) world[wall[0]][wall[1]] = WALL;
@@ -123,27 +117,16 @@ let gameState = (function() {
         intervalId = window.setInterval(step, levelData.delay);
     }
 
-    function setKey(pressedKey) {
-        if (validKeys.includes(pressedKey)) keyPressed = pressedKey;
+    function updateDirection(newX, newY) {
+        x = newX;
+        y = newY;
     }
 
     function step() {
-        // We check if we can validate user's direction change request - if not, the direction doesn't change
-        if(validKeys.indexOf(keyPressed) < 2) { // for the logic, check the validKeys declaration
-            if (validKeys.indexOf(key) !== validKeys.indexOf(keyPressed) + 2) key = keyPressed;
-        } else { // index >= 2 
-            if (validKeys.indexOf(key) !== validKeys.indexOf(keyPressed) - 2) key = keyPressed;
-        }
-
-        if (key == undefined) return; // we wait for the user to choose a direction to start the game (undefined while he hasen't chosen a direction, can't get back to undefined)
-
-        let x=0, y=0; // determine movement direction
-        switch(key) {
-            case "ArrowUp":     y=-1; break;
-            case "ArrowDown":   y=1; break;
-            case "ArrowLeft":   x=-1; break;
-            default:            x=1; break;
-        }
+        // We ask the gameInputManager module to refresh our direction attributes 
+        gameInputManager.askForDirectionRefresh();
+        // We then verify if the user has chosen an initial direction already, else the game doesn't start
+        if (x == undefined && y == undefined) return;
         
         let futureHeadLocation;
         if((snake[snake.length-1][0] >= world.length -1 && y===1) || (y===-1 && snake[snake.length-1][0] <= 0)) {
@@ -151,7 +134,6 @@ let gameState = (function() {
         } else {
             futureHeadLocation = world[snake[snake.length-1][0]+y][snake[snake.length-1][1]+x]; // head is at the last position of the snake array
         }
-        console.log("SNAK : " + snake[snake.length-1][1]);
         // undefined if gets out of map
         if (futureHeadLocation != undefined && (futureHeadLocation === FOOD || futureHeadLocation === EMPTY)) {
             if (futureHeadLocation === FOOD) {
@@ -199,19 +181,8 @@ let gameState = (function() {
     }
 
     return { // public attributes / methods
-        setKey: setKey,
+        updateDirection: updateDirection,
         notifyLevelSelected: notifyLevelSelected,
         tryStopStepping: tryStopStepping,  
     };
 }());
-
-
-document.addEventListener("keydown", (event) => {
-    gameState.setKey(event.key);
-});
-
-
-
-// ACCUEIL : listener avec ids sur la liste niveaux
-// au clic : appelle loadLevel de gameState avec en param° le nom du lvl (id)
-// gameState appelle AJAX pour récupérer le JSON en objet, qu'il stocke en attr currentLevel puis affiche tout
