@@ -10,6 +10,8 @@ body {
     font-family: Cinzel;
     transition: 0.7s;
     text-size-adjust: auto;
+
+    overflow-y: hidden;
 }
 
 h1 {
