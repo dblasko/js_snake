@@ -2,10 +2,44 @@ let gameInputManager = (function() {
     const validKeys = ["ArrowRight", "ArrowUp", "ArrowLeft", "ArrowDown"];
     // CONCEPT : if index < 2 : can't change direction to index+2, if >= 2, can't change to index-2 for incoherent changes
 
+    /* KEYBOARD */
     let key;// current moving direction (validated)
     let keyPressed; // buffer => key the user has requested for the moving direction to change
     
+    /* TOUCH */
+    let touchstartX = 0, touchstartY = 0, touchendX = 0, touchendY = 0;
+
+
+    function setTouchStart(x, y) {
+        touchstartX = x;
+        touchstartY = y;
+    }
+
+    function setTouchEnd(x, y) {
+        touchendX = x;
+        touchendY = y;
+    }
+
+    function handleGesture() {
+        const { width, height } = gestureZone.getBoundingClientRect();
     
+        const ratio_horizontal = (touchendX - touchstartX) / width;
+        const ratio_vertical = (touchendY - touchstartY) / height;
+        
+        if (ratio_horizontal > ratio_vertical && ratio_horizontal > 0.25) {
+            setKey("ArrowRight");
+        }
+        if (ratio_vertical > ratio_horizontal && ratio_vertical > 0.25) {
+            setKey("ArrowDown");
+        }
+        if (ratio_horizontal < ratio_vertical && ratio_horizontal < -0.25) {
+            setKey("ArrowLeft");
+        }
+        if (ratio_vertical < ratio_horizontal && ratio_vertical < -0.25) {
+            setKey("ArrowUp");
+        }
+    }
+
     function setKey(pressedKey) {
         if (validKeys.includes(pressedKey)) keyPressed = pressedKey;
     }
@@ -34,15 +68,32 @@ let gameInputManager = (function() {
         }
         gameState.updateDirection(x,y);
     }
+
     
     return {
         setKey: setKey,
         notifyNewGame: notifyNewGame,
         askForDirectionRefresh: askForDirectionRefresh,
+        setTouchEnd: setTouchEnd,
+        setTouchStart: setTouchStart,
+        handleGesture: handleGesture,
     };
 }());
 
 
+/* KEYBOARD EVENTS */
 document.addEventListener("keydown", (event) => {
     gameInputManager.setKey(event.key);
 });
+
+
+/* TOUCH EVENTS */ 
+const gestureZone = document.getElementById('contentZone');
+gestureZone.addEventListener('touchstart', function(event) {
+    gameInputManager.setTouchStart(event.changedTouches[0].screenX, event.changedTouches[0].screenY);
+}, false);
+
+gestureZone.addEventListener('touchend', function(event) {
+    gameInputManager.setTouchEnd(event.changedTouches[0].screenX, event.changedTouches[0].screenY);
+    gameInputManager.handleGesture();
+}, false); 
