@@ -11,7 +11,7 @@ body {
     transition: 0.7s;
     text-size-adjust: auto;
 
-    overflow-y: hidden;
+    overscroll-behavior: contain;
 }
 
 h1 {
