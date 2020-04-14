@@ -1,6 +1,6 @@
 # JS Snake 🐍
 A practical project for my JS course.
-[](./assets/images/DSC05294.jpg)
+![app photo](./assets/images/DSC05294.jpg "Project on a PC and a phone.")
 
 ## Disclaimer
 
