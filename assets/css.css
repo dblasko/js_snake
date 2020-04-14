@@ -194,19 +194,39 @@ header {
       
 
     h1 > mark {
+        font-size: medium;
         line-height: 1em;
         padding: 0.3em 0em 0.3em 0em;
+        margin-top: 0px;
     }
 
 
     h2 > mark {
+        font-size: small;
         line-height: 1em;
         padding: 0.3em 0em 0.3em 0em;
+    }
+
+    #contentZone {
+      margin-top: 5.5vh;
+      padding-top: 0vh;
+      height: 100%;
+      /*margin-bottom: 55vh;*/
     }
 
     #contentZone p {
         margin: 2vh 12vw 2vh 12vw;
         line-height: 1.5em;
+    }
+
+    footer {
+      visibility: hidden;
+      height: 0px;
+      width: 0px;
+    }
+
+    .game {
+      font-size: large;
     }
 }
 
