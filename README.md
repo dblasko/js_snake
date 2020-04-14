@@ -1,5 +1,6 @@
 # JS Snake 🐍
 A practical project for my JS course.
+[](./assets/images/DSC05294.jpg)
 
 ## Disclaimer
 
