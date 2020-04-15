@@ -8,7 +8,7 @@ A practical project for my JS course.
 
 
 ## Test it live ! 🚀
-The CI (Github Actions) should ensure that a version of the project is currently running **[HERE](http://51.77.193.23:8000/)**.
+The CI (Github Actions) should ensure that a version of the project is currently running on **[coronasnake.live](http://51.77.193.23:8000/)**.
 
 However, if you want to try running the project locally or if the live version is down, please refer to the *Running the project* section below.
 
