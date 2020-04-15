@@ -12,6 +12,10 @@ body {
     text-size-adjust: auto;
 
     overflow-y: hidden;
+
+    background-image: url("/assets/images/dot.png");
+    background-size: 0.6vh 0.6vh;
+    background-repeat: repeat;
 }
 
 h1 {
