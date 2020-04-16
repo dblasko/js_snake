@@ -195,8 +195,6 @@ let gameState = (function() {
         tryStopStepping();
         if(levelData.delay > levelData.minDelay) levelData.delay -= 50;
         intervalId = window.setInterval(step, levelData.delay);
-        // TODO : add param for the ice food, put a super slow interval + delay a method that will bring it back to normal in 5sec
-        // TODO : then correct the methods calls, add ice resource + constant + probability spawn + handling in step function eating part
     }
 
     return { // public attributes / methods

@@ -24,3 +24,15 @@ However, if you want to try running the project locally or if the live version i
 ## Instructions 
 
 **Instructions are available [here](https://perso.liris.cnrs.fr/pierre-antoine.champin/enseignement/intro-js/s6.html).**
+
+## Bonus features
+
+* Revealing module design pattern 
+* Full mobile support : responsive design + navigating the snake with swipe motions
+* Different foods with different effects & visuals
+* Food respawns after a while for a more interesting gameplay 
+* Dynamic messages in the header
+* Sounds on moving, eating, dying ...
+  * * Usage of a library for audio
+* Different map sizes, the canvas adapts to the screen & map dimensions
+* Continuous Integration 
